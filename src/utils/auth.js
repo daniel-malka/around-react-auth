@@ -1,7 +1,19 @@
 import { BASE_URL, customFetch } from './constants-and-rep-code';
 
-export const signInOrUp = (email, pass, inOrUp) => {
-  customFetch(`${BASE_URL}/sign-${inOrUp}`, {
+export const signUp = ({ email, pass }) => {
+  customFetch(`${BASE_URL}/sign-up`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `6efb715f-3f27-47aa-b11b-00d476bb80a2`,
+    },
+    body: JSON.stringify({ email, pass }),
+  });
+};
+
+export const signIn = (email, pass) => {
+  customFetch(`${BASE_URL}/sign-in`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -17,11 +29,7 @@ export const checkToken = (token) => {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
+      Authorization: `'6efb715f-3f27-47aa-b11b-00d476bb80a2'`,
     },
   });
-};
-module.exports = {
-  signInOrUp,
-  checkToken,
 };

@@ -18,50 +18,53 @@ export class Api {
 
   setUserInfo({ name, about }) {
     customFetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers,
-      method: 'PATCH',
-      body: JSON.stringify({
-        name,
-        about,
-      }),
+      headers: {
+        ...this._headers,
+        method: 'PATCH',
+        body: JSON.stringify({
+          name,
+          about,
+        }),
+      },
     });
   }
 
   addCard({ name, link }) {
     customFetch(`${this._baseUrl}/cards`, {
-      headers: this._headers,
-      method: 'POST',
-      body: JSON.stringify({
-        name,
-        link,
-      }),
+      headers: {
+        ...this._headers,
+        method: 'POST',
+        body: JSON.stringify({
+          name,
+          link,
+        }),
+      },
     });
   }
   editAvatar(avatar) {
     customFetch(`${this._baseUrl}/users/me/avatar`, {
-      headers: this._headers,
-      method: 'PATCH',
-      body: JSON.stringify({
-        avatar,
-      }),
+      headers: {
+        ...this._headers,
+        method: 'PATCH',
+        body: JSON.stringify({
+          avatar,
+        }),
+      },
     });
   }
   deleteCard(cardId) {
     customFetch(`${this._baseUrl}/cards/${cardId}`, {
-      headers: this._headers,
-      method: 'DELETE',
+      headers: { ...this._headers, method: 'DELETE' },
     });
   }
   dislikeCard(id) {
     customFetch(`${this._baseUrl}/cards/likes/${id}`, {
-      headers: this._headers,
-      method: 'DELETE',
+      headers: { ...this._headers, method: 'DELETE' },
     });
   }
   likeCard(id) {
     customFetch(`${this._baseUrl}/cards/likes/${id}`, {
-      headers: this._headers,
-      method: 'PUT',
+      headers: { ...this._headers, method: 'PUT' },
     });
   }
 }
@@ -72,5 +75,4 @@ const api = new Api({
     'Content-Type': 'application/json',
   },
 });
-
 export default api;

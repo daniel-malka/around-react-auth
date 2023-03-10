@@ -3,7 +3,7 @@ import successIcon from '../images/success-icon.svg';
 import falureIcon from '../images/faliure-icon.svg';
 import InfoPopup from './InfoPopup';
 
-export const InfoTooltip = ({ isOpen, onClose, bool }) => {
+const InfoTooltip = ({ isOpen, onClose, bool }) => {
   useEffect(() => {
     if (isOpen) {
       const timer = setTimeout(() => {
@@ -28,4 +28,4 @@ export const InfoTooltip = ({ isOpen, onClose, bool }) => {
     </InfoPopup>
   );
 };
-module.exports = { InfoTooltip };
+export default InfoTooltip;

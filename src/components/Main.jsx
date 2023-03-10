@@ -5,11 +5,6 @@ import Card from './Card';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 
 
-import('../blocks/images.css');
-import('../blocks/popup.css');
-import('../blocks/gallery.css');
-import('../blocks/zoom.css');
-
 function Main({
   cards,
   onEditProfileClick,

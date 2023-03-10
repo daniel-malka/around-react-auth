@@ -1,21 +1,26 @@
 import React, { useEffect } from 'react';
 
 function InfoPopup({ name, isOpen, onClose, children }) {
-  useEffect(() => {
-    const handleEvents = (e) => {
-      if (
-        e.key === 'Escape' ||
-        e.key === 'Enter' ||
-        e.target.classList.contains('popup_opened')
-      )
-        onClose();
-    };
-    if (!isOpen) {
-      document.removeEventListener('keydown' || 'click', handleEvents());
-      return;
-    }
-    document.addEventListener('keydown' || 'click', (e) => handleEvents(e));
-  }, [isOpen, onClose]);
+  // useEffect(() => {
+  //   const handleEvents = (e) => {
+  //     if (
+  //       e.key === 'Escape' /*||
+  //        e.key === 'Enter' ||
+  //        e.target.classList.contains('popup_opened') **/
+  //     ) {
+  //       onClose();
+  //     }
+  //   };
+  //   if (!isOpen) {
+  //     document.removeEventListener('keydown' /* || 'click'**/, (e) =>
+  //       handleEvents(e)
+  //     );
+  //     // return;
+  //   }
+  //   document.addEventListener('keydown' /* || 'click'**/, (e) =>
+  //     handleEvents(e)
+  //   );
+  // }, [isOpen, onClose]);
 
   return (
     <div

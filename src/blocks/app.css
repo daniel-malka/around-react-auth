@@ -1,8 +1,8 @@
-.page {
+.App {
   box-sizing: border-box;
   max-width: 1280px;
   padding-top: 45px;
-  font-family: "SecularOne", Arial, sans-serif;
+  font-family: 'SecularOne', Arial, sans-serif;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -14,7 +14,7 @@
   align-items: center;
 }
 @media screen and (max-width: 350px) {
-  .page {
+  .App {
     padding-top: 28px;
   }
 }

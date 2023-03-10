@@ -25,7 +25,7 @@ const Login = ({ handleLogin }) => {
   };
 
   return (
-    <div className="auth-form">
+    <div className="auth-form" height="80" width="80" color="#fff">
       <h2 className="auth-form__title">Log in</h2>
       <form className="auth-form__form" onSubmit={handleSubmit}>
         <input

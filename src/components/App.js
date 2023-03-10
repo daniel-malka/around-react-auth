@@ -1,31 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
+import CurrentUserContext from '../contexts/CurrentUserContext';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
+import ProtectedRoute from './ProtectedRoute';
 import AddPlacePopup from './AddPlacePopup';
-import { InfoTooltip } from './InfoToolTip';
+import InfoTooltip from './InfoToolTip';
 import PopupWithImage from './PopupWithImage';
 import DeletePopupForm from './DeletePopupForm';
 import EditAvatarPopup from './EditAvatarPopup';
 import EditProfilePopup from './EditProfilePopup';
-import ProtectedRoute from './ProtectedRoute';
-import CurrentUserContext from '../contexts/CurrentUserContext';
-import api from '../utils/Api';
-import { signInOrUp, checkToken } from '../utils/auth';
-import Login from './Login';
 
-import('../blocks/root.css');
-import('../blocks/page.css');
-import('../blocks/popup.css');
-import('../blocks/zoom.css');
-import('../blocks/desc.css');
-import('../blocks/top.css');
-import('../blocks/text.css');
-import('../blocks/header.css');
-import('../blocks/content.css');
-import('../blocks/form.css');
-import('../blocks/footer.css');
+import api from '../utils/Api';
+import { signUp, signIn, checkToken } from '../utils/Auth';
+import Register from './Register';
+import Login from './Login';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -47,16 +37,14 @@ function App() {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    api
-      .getUserInfo()
-      .then((user) => {
-        setCurrentUser(user);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
-  useEffect(() => {
     if (isLoggedIn) {
+      api
+        .getUserInfo()
+        .then((user) => {
+          setCurrentUser(user);
+        })
+        .catch((err) => console.log(err));
+
       api
         .getCards()
         .then((res) => {
@@ -86,18 +74,17 @@ function App() {
   }, [history]);
 
   useEffect(() => {
-    if (!isLoggedIn) {
-    }
-  }, [isLoggedIn]);
-
-  useEffect(() => {
     const handleClose = (e) => {
-      if (e.key === 'Escape' || e.target.classList.contains('popup_opened')) {
+      if (
+        e.keyCode === 'Escape' ||
+        e.keyCode === 'Enter' ||
+        e.target.classList.contains('popup_opened')
+      ) {
         closeAllPopups();
       }
     };
 
-    document.addEventListener('keydown' || 'click', handleClose);
+    document.addEventListener('keydown' || 'click', (e) => handleClose(e));
 
     return () => {
       document.removeEventListener('keydown' || 'click', handleClose);
@@ -105,20 +92,24 @@ function App() {
   }, []);
 
   const handleSignUp = ({ email, pass }) => {
-    signInOrUp(email, pass, 'up').then((res) => {
-      if (res.data._id) {
-        setTooltipStatus(true);
-        setIsInfoTooltipOpen(true);
-        history.push('/sign-in');
-      } else {
-        setTooltipStatus(false);
-        setIsInfoTooltipOpen(true);
-      }
-    });
+    signUp(email, pass)
+      .then((res) => {
+        if (res.data._id) {
+          setTooltipStatus(true);
+          setIsInfoTooltipOpen(true);
+          history.push('/sign-in');
+        } else {
+          setTooltipStatus(false);
+          setIsInfoTooltipOpen(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const handleLogin = ({ email, pass }) => {
-    signInOrUp(email, pass, 'in')
+    signIn(email, pass)
       .then((res) => {
         if (res.token) {
           setIsLoggedIn(true);
@@ -242,7 +233,7 @@ function App() {
   }
 
   return (
-    <div className="page">
+    <div className="App">
       <CurrentUserContext.Provider value={currentUser}>
         <Header
           isLoggedIn={isLoggedIn}
@@ -251,12 +242,10 @@ function App() {
         />
         <Switch>
           <ProtectedRoute
-            exact
-            path="/"
+            path="/around-react"
             isLoggedIn={isLoggedIn}
             isCheckingToken={isCheckingToken}
           >
-            {' '}
             <Main
               cards={cards}
               onEditProfileClick={handleEditProfileClick}
@@ -268,8 +257,8 @@ function App() {
             />
           </ProtectedRoute>
 
-          <Route path="sign-up">
-            <Login handleSignUp={handleSignUp} />
+          <Route path="/sign-up">
+            <Register handleSignUp={handleSignUp} />
           </Route>
 
           <Route path="/sign-in">
@@ -277,7 +266,7 @@ function App() {
           </Route>
 
           <Route>
-            {isLoggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
+            {isLoggedIn ? <Redirect to="/" /> : <Redirect to="/sign-up" />}
           </Route>
         </Switch>
 
@@ -319,7 +308,7 @@ function App() {
         <InfoTooltip
           isOpen={isInfoTooltipOpen}
           onClose={closeAllPopups}
-          type={tooltipStatus}
+          bool={tooltipStatus}
         />
       </CurrentUserContext.Provider>
     </div>

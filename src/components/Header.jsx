@@ -1,9 +1,20 @@
-import React from "react";
-import logo from "../images/top__logo.svg";
+import { useEffect, useState } from 'react';
+import logo from '../images/top__logo.svg';
+import { Link } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({ isLoggedIn, email, handleSignout }) => {
+  const [isHeaderMenuOpen, setIsHeaderMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isHeaderMenuOpen) {
+      setIsHeaderMenuOpen(false);
+    }
+  }, [isHeaderMenuOpen]);
+
   return (
-    <header className="header">
+    <header
+      className={isHeaderMenuOpen ? 'header__wrapper-mobile-open' : 'header'}
+    >
       <img src={logo} alt="AROUND the us logo" className="header__logo" />
     </header>
   );

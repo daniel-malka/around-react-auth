@@ -7,12 +7,10 @@ const ProtectedRoute = ({
   isCheckingToken,
   ...props
 }) => {
-  return isCheckingToken ? (
-    ''
-  ) : isLoggedIn ? (
+  return isLoggedIn ? (
     <Route {...props}>{children}</Route>
   ) : (
-    <Redirect to="/signin" />
+    <Redirect to="/sign-in" />
   );
 };
 
