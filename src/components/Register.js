@@ -1,27 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const Register = ({ handleSignUp }) => {
   //use state object for email and password
-  const [data, setData] = useState({
-    email: '',
-    password: '',
-  });
-
-  //handle input change
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData({
-      ...data,
-      [name]: value,
-    });
-  };
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   //handle submit
   const handleSubmit = (e) => {
+    console.log(email, password);
     e.preventDefault();
-    const { email, pass } = data;
-    handleSignUp({ email, pass });
+    const userData = {
+      email,
+      password,
+    };
+
+    handleSignUp(userData.email, userData.password);
   };
 
   return (
@@ -33,16 +27,18 @@ const Register = ({ handleSignUp }) => {
           name="email"
           className="auth-form__input"
           placeholder="Email"
-          value={data.email}
-          onChange={handleChange}
+          value={email || ''}
+          onChange={(e) => setEmail(e.target.value)}
+          required
         />
         <input
           type="password"
           name="password"
           className="auth-form__input"
           placeholder="Password"
-          value={data.password}
-          onChange={handleChange}
+          value={password || ''}
+          onChange={(e) => setPassword(e.target.value)}
+          required
         />
 
         <div className="auth-form__footer">
@@ -51,7 +47,7 @@ const Register = ({ handleSignUp }) => {
               Sign up
             </button>
             <p className="auth-form__footer-text">
-              Already a member?{' '}
+              Already a member?
               <Link to="/signin" className="auth-form__footer-link">
                 Log in here!
               </Link>

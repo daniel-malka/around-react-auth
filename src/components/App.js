@@ -60,12 +60,13 @@ function App() {
     if (token) {
       checkToken(token)
         .then((res) => {
-          history.push('/');
+          setEmail(res.data.email);
+          history.push('/around-react');
           api.setUserInfo({ email: res.data.email });
         })
         .catch((err) => {
           console.log(err);
-          history.push('sign-in');
+          history.push('signin');
         })
         .finally(() => {
           setIsCheckingToken(false);
@@ -91,13 +92,14 @@ function App() {
     };
   }, []);
 
-  const handleSignUp = ({ email, pass }) => {
-    signUp(email, pass)
+  const handleSignUp = (email, password) => {
+    console.log(email, password);
+    signUp(email, password)
       .then((res) => {
         if (res.data._id) {
           setTooltipStatus(true);
           setIsInfoTooltipOpen(true);
-          history.push('/sign-in');
+          history.push('/signin');
         } else {
           setTooltipStatus(false);
           setIsInfoTooltipOpen(true);
@@ -108,12 +110,12 @@ function App() {
       });
   };
 
-  const handleLogin = ({ email, pass }) => {
-    signIn(email, pass)
+  const handleLogin = (email, password) => {
+    signIn(email, password)
       .then((res) => {
         if (res.token) {
           setIsLoggedIn(true);
-          setEmail({ email });
+          setEmail(email);
           history.push('/');
           localStorage.setItem('token', res.token);
         } else {
@@ -130,7 +132,7 @@ function App() {
   const handleLogout = () => {
     setIsLoggedIn(false);
     localStorage.removeItem('token');
-    history.push('/sign-in');
+    history.push('/signin');
   };
 
   function handleCardLike(card) {
@@ -179,6 +181,7 @@ function App() {
     setIsEditAvatarOpen(false);
     setIsImgViewOpen(false);
     setIsDeletePopupOpen(false);
+    setIsInfoTooltipOpen(false);
   }
 
   function handleDeleteClick(card) {
@@ -257,16 +260,20 @@ function App() {
             />
           </ProtectedRoute>
 
-          <Route path="/sign-up">
+          <Route path="/signup">
             <Register handleSignUp={handleSignUp} />
           </Route>
 
-          <Route path="/sign-in">
+          <Route path="/signin">
             <Login handleLogin={handleLogin} />
           </Route>
 
           <Route>
-            {isLoggedIn ? <Redirect to="/" /> : <Redirect to="/sign-up" />}
+            {isLoggedIn ? (
+              <Redirect to="/around-react" />
+            ) : (
+              <Redirect to="/signup" />
+            )}
           </Route>
         </Switch>
 

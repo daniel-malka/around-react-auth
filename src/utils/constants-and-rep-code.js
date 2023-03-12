@@ -1,4 +1,5 @@
-const BASE_URL = 'https://around.nomoreparties.co/v1/cohort-3-en';
+const BASE_URL = 'https://register.nomoreparties.co';
+const BASE_URL2 = 'https://around.nomoreparties.co/v1/cohort-3-en';
 
 const customFetch = (url, headers) => {
   return fetch(url, headers).then((res) =>
@@ -6,4 +7,4 @@ const customFetch = (url, headers) => {
   );
 };
 
-module.exports = { BASE_URL, customFetch };
+module.exports = { BASE_URL, BASE_URL2, customFetch };

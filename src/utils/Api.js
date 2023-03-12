@@ -1,4 +1,4 @@
-import { BASE_URL, customFetch } from './constants-and-rep-code';
+import { BASE_URL, BASE_URL2, customFetch } from './constants-and-rep-code';
 
 export class Api {
   constructor(settings) {
@@ -6,18 +6,18 @@ export class Api {
     this._headers = settings.headers;
   }
   getCards() {
-    customFetch(`${this._baseUrl}/cards`, {
+    return customFetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
     });
   }
   getUserInfo() {
-    customFetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers,
+    return customFetch(`${this._baseUrl}/users/me`, {
+      headers: { ...this._headers },
     });
   }
 
   setUserInfo({ name, about }) {
-    customFetch(`${this._baseUrl}/users/me`, {
+    return customFetch(`${this._baseUrl}/users/me`, {
       headers: {
         ...this._headers,
         method: 'PATCH',
@@ -30,7 +30,7 @@ export class Api {
   }
 
   addCard({ name, link }) {
-    customFetch(`${this._baseUrl}/cards`, {
+    return customFetch(`${this._baseUrl}/cards`, {
       headers: {
         ...this._headers,
         method: 'POST',
@@ -42,7 +42,7 @@ export class Api {
     });
   }
   editAvatar(avatar) {
-    customFetch(`${this._baseUrl}/users/me/avatar`, {
+    return customFetch(`${this._baseUrl}/users/me/avatar`, {
       headers: {
         ...this._headers,
         method: 'PATCH',
@@ -53,25 +53,27 @@ export class Api {
     });
   }
   deleteCard(cardId) {
-    customFetch(`${this._baseUrl}/cards/${cardId}`, {
+    return customFetch(`${this._baseUrl}/cards/${cardId}`, {
       headers: { ...this._headers, method: 'DELETE' },
     });
   }
   dislikeCard(id) {
-    customFetch(`${this._baseUrl}/cards/likes/${id}`, {
+    return customFetch(`${this._baseUrl}/cards/likes/${id}`, {
       headers: { ...this._headers, method: 'DELETE' },
     });
   }
   likeCard(id) {
-    customFetch(`${this._baseUrl}/cards/likes/${id}`, {
-      headers: { ...this._headers, method: 'PUT' },
+    return customFetch(`${this._baseUrl}/cards/likes/${id}`, {
+      method: 'PUT',
+      headers: { ...this._headers },
     });
   }
 }
 const api = new Api({
-  baseUrl: BASE_URL,
+  baseUrl: BASE_URL2,
   headers: {
-    Authorization: '6efb715f-3f27-47aa-b11b-00d476bb80a2',
+    Accept: 'application/json',
+    Authorization: 'dabe6f5b-76a9-454b-a126-949e6970cf03',
     'Content-Type': 'application/json',
   },
 });

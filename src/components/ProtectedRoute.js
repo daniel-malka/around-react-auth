@@ -10,7 +10,7 @@ const ProtectedRoute = ({
   return isLoggedIn ? (
     <Route {...props}>{children}</Route>
   ) : (
-    <Redirect to="/sign-in" />
+    <Redirect to="/signin" />
   );
 };
 

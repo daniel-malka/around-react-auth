@@ -13,7 +13,7 @@ function AddPlacePopup({ isOpen, onSubmit, onClose }) {
   function handleSubmit(e) {
     e.preventDefault();
     onSubmit({
-      name,
+      name: name,
       link,
     });
   }
