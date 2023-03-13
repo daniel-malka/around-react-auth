@@ -1,10 +1,12 @@
-import React from 'react';
+import { useState, useContext } from 'react';
 
 import CurrentUserContext from '../contexts/CurrentUserContext';
 
 const Card = ({ card, onCardClick, onCardLike, onCardDelete }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   function handleClick() {
-    onCardClick(card);
+    if (isLoggedIn) onCardClick(card);
   }
 
   function handleLikeClick() {
@@ -15,9 +17,9 @@ const Card = ({ card, onCardClick, onCardLike, onCardDelete }) => {
     onCardDelete(card);
   }
 
-  const currentUser = React.useContext(CurrentUserContext);
-
+  const currentUser = useContext(CurrentUserContext);
   const isOwn = card.owner._id === currentUser._id;
+
   const cardDeleteButtonClassName = `gallery__bin ${
     isOwn ? '' : 'gallery__bin_disabled'
   }`;

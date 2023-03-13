@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import PopupWithForm from "./PopupWithForm";
+import React, { useState, useEffect } from 'react';
+import PopupWithForm from './PopupWithForm';
 
 function AddPlacePopup({ isOpen, onSubmit, onClose }) {
-  const [name, setName] = useState("");
-  const [link, setLink] = useState("");
+  const [name, setName] = useState('');
+  const [link, setLink] = useState('');
 
   useEffect(() => {
-    setName("");
-    setLink("");
+    setName('');
+    setLink('');
   }, [isOpen]);
 
   function handleSubmit(e) {
@@ -19,14 +19,14 @@ function AddPlacePopup({ isOpen, onSubmit, onClose }) {
   }
 
   useEffect(() => {
-    document.addEventListener("keydown", handleEnterSumbit);
-  });
+    document.addEventListener('keydown', handleEnterSumbit);
+  }, [isOpen]);
 
   function handleEnterSumbit(e) {
-    if (e.key === "Enter") handleSubmit(e);
+    if (e.key === 'Enter') handleSubmit(e);
 
     return () => {
-      document.removeEventListener("keydown", handleEnterSumbit);
+      document.removeEventListener('keydown', handleEnterSumbit);
     };
   }
   function handleNameChange(e) {
@@ -54,7 +54,7 @@ function AddPlacePopup({ isOpen, onSubmit, onClose }) {
           placeholder="Title"
           className="fieldset__input fieldset__input_type-title"
           minLength={1}
-          value={name || ""}
+          value={name || ''}
           maxLength={30}
           required
         />
@@ -67,7 +67,7 @@ function AddPlacePopup({ isOpen, onSubmit, onClose }) {
           name="link"
           onChange={handleLinkChange}
           placeholder="Link"
-          value={link || ""}
+          value={link || ''}
           className="fieldset__input fieldset__input_type_link"
           required
         />

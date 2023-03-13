@@ -74,24 +74,6 @@ function App() {
     }
   }, [history]);
 
-  useEffect(() => {
-    const handleClose = (e) => {
-      if (
-        e.keyCode === 'Escape' ||
-        e.keyCode === 'Enter' ||
-        e.target.classList.contains('popup_opened')
-      ) {
-        closeAllPopups();
-      }
-    };
-
-    document.addEventListener('keydown' || 'click', (e) => handleClose(e));
-
-    return () => {
-      document.removeEventListener('keydown' || 'click', handleClose);
-    };
-  }, []);
-
   const handleSignUp = (email, password) => {
     console.log(email, password);
     signUp(email, password)
@@ -106,7 +88,8 @@ function App() {
         }
       })
       .catch((err) => {
-        console.log(err);
+        setTooltipStatus(false);
+        setIsInfoTooltipOpen(true);
       });
   };
 
@@ -116,7 +99,7 @@ function App() {
         if (res.token) {
           setIsLoggedIn(true);
           setEmail(email);
-          history.push('/');
+          history.push('/around-react');
           localStorage.setItem('token', res.token);
         } else {
           setTooltipStatus(false);
@@ -144,14 +127,14 @@ function App() {
         const newCards = cards.map((card) => {
           return card._id === likedCard._id ? likedCard : card;
         });
-        api.setCards(newCards);
+        setCards(newCards);
       });
     } else {
       api.likeCard(card._id).then((likedCard) => {
         const newCards = cards.map((card) => {
           return card._id === likedCard._id ? likedCard : card;
         });
-        api.setCards(newCards);
+        setCards(newCards);
       });
     }
   }
@@ -279,39 +262,41 @@ function App() {
 
         <Footer />
 
-        <EditProfilePopup
-          title="Edit Profile"
-          name="edit"
-          isOpen={isEditProfileOpen}
-          onClose={closeAllPopups}
-          onUpdateUser={handleUpdateUser}
-        />
-
-        <AddPlacePopup
-          title="New Place"
-          name="img-add"
-          isOpen={isAddCardOpen}
-          onClose={closeAllPopups}
-          onSubmit={handleAddPlaceSubmit}
-        />
-
-        <EditAvatarPopup
-          isOpen={isEditAvatarOpen}
-          onUpdateAvatar={handleUpdateAvatar}
-          onClose={closeAllPopups}
-        />
-
-        <DeletePopupForm
-          isOpen={isDeletePopupOpen}
-          onSubmit={handleCardDelete}
-          onClose={closeAllPopups}
-        />
-
-        <PopupWithImage
-          card={selectedCard}
-          isOpen={isImgViewOpen}
-          onClose={closeAllPopups}
-        />
+        {isLoggedIn ? (
+          <>
+            <EditProfilePopup
+              title="Edit Profile"
+              name="edit"
+              isOpen={isEditProfileOpen}
+              onClose={closeAllPopups}
+              onUpdateUser={handleUpdateUser}
+            />
+            <AddPlacePopup
+              title="New Place"
+              name="img-add"
+              isOpen={isAddCardOpen}
+              onClose={closeAllPopups}
+              onSubmit={handleAddPlaceSubmit}
+            />
+            <EditAvatarPopup
+              isOpen={isEditAvatarOpen}
+              onUpdateAvatar={handleUpdateAvatar}
+              onClose={closeAllPopups}
+            />
+            <DeletePopupForm
+              isOpen={isDeletePopupOpen}
+              onSubmit={handleCardDelete}
+              onClose={closeAllPopups}
+            />
+            <PopupWithImage
+              card={selectedCard}
+              isOpen={isImgViewOpen}
+              onClose={closeAllPopups}
+            />
+          </>
+        ) : (
+          ''
+        )}
         <InfoTooltip
           isOpen={isInfoTooltipOpen}
           onClose={closeAllPopups}

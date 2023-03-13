@@ -1,10 +1,11 @@
 import { BASE_URL, BASE_URL2, customFetch } from './constants-and-rep-code';
 
 export class Api {
-  constructor(settings) {
-    this._baseUrl = settings.baseUrl;
-    this._headers = settings.headers;
+  constructor({ baseUrl, headers }) {
+    this._baseUrl = baseUrl;
+    this._headers = headers;
   }
+
   getCards() {
     return customFetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
@@ -18,48 +19,46 @@ export class Api {
 
   setUserInfo({ name, about }) {
     return customFetch(`${this._baseUrl}/users/me`, {
-      headers: {
-        ...this._headers,
-        method: 'PATCH',
-        body: JSON.stringify({
-          name,
-          about,
-        }),
-      },
+      method: 'PATCH',
+      headers: this._headers,
+
+      body: JSON.stringify({
+        name: name,
+        about: about,
+      }),
     });
   }
 
   addCard({ name, link }) {
     return customFetch(`${this._baseUrl}/cards`, {
-      headers: {
-        ...this._headers,
-        method: 'POST',
-        body: JSON.stringify({
-          name,
-          link,
-        }),
-      },
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        name,
+        link,
+      }),
     });
   }
   editAvatar(avatar) {
     return customFetch(`${this._baseUrl}/users/me/avatar`, {
-      headers: {
-        ...this._headers,
-        method: 'PATCH',
-        body: JSON.stringify({
-          avatar,
-        }),
-      },
+      method: 'PATCH',
+      headers: this._headers,
+
+      body: JSON.stringify({
+        avatar: avatar,
+      }),
     });
   }
   deleteCard(cardId) {
     return customFetch(`${this._baseUrl}/cards/${cardId}`, {
-      headers: { ...this._headers, method: 'DELETE' },
+      method: 'DELETE',
+      headers: { ...this._headers },
     });
   }
   dislikeCard(id) {
     return customFetch(`${this._baseUrl}/cards/likes/${id}`, {
-      headers: { ...this._headers, method: 'DELETE' },
+      method: 'DELETE',
+      headers: { ...this._headers },
     });
   }
   likeCard(id) {
