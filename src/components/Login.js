@@ -1,27 +1,20 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-
-const Login = ({ handleLogin }) => {
+import password__eye from '../images/password-eye.svg';
+const Login = ({ handleLogin, handleEyeIcon }) => {
   //use state object for email and password
-  const [data, setData] = useState({
-    email: '',
-    password: '',
-  });
-
-  //handle input change
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData({
-      ...data,
-      [name]: value,
-    });
-  };
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   //handle submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { email, password } = data;
-    handleLogin(email, password);
+    const userData = {
+      email,
+      password,
+    };
+
+    handleLogin(userData.email, userData.password);
   };
 
   return (
@@ -33,17 +26,25 @@ const Login = ({ handleLogin }) => {
           name="email"
           className="auth-form__input"
           placeholder="Email"
-          value={data.email}
-          onChange={handleChange}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
-        <input
-          type="password"
-          name="password"
-          className="auth-form__input"
-          placeholder="Password"
-          value={data.password}
-          onChange={handleChange}
-        />
+        <div className="auth-form__password-holder">
+          <input
+            type="text"
+            name="password"
+            className="auth-form__input auth-form__input-password auth-form__password-holder-active"
+            placeholder="Password"
+            value={password || ''}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <img
+            className="auth-form__password-eye-icon"
+            onClick={handleEyeIcon}
+            src={password__eye}
+          />
+        </div>
 
         <div className="auth-form__footer">
           <div className="auth-form__footer-wrapper">
@@ -51,8 +52,9 @@ const Login = ({ handleLogin }) => {
               Log in
             </button>
             <p className="auth-form__footer-text">
-              Not a member yet?{' '}
+              Not a member yet?
               <Link to="/signup" className="auth-form__footer-link">
+                {' '}
                 Sign up here!
               </Link>
             </p>

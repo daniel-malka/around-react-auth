@@ -23,8 +23,8 @@ export class Api {
       headers: this._headers,
 
       body: JSON.stringify({
-        name: name,
-        about: about,
+        name,
+        about,
       }),
     });
   }

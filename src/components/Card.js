@@ -3,10 +3,8 @@ import { useState, useContext } from 'react';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 
 const Card = ({ card, onCardClick, onCardLike, onCardDelete }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   function handleClick() {
-    if (isLoggedIn) onCardClick(card);
+    onCardClick(card);
   }
 
   function handleLikeClick() {

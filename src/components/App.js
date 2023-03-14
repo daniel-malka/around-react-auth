@@ -60,6 +60,7 @@ function App() {
     if (token) {
       checkToken(token)
         .then((res) => {
+          setIsLoggedIn(true);
           setEmail(res.data.email);
           history.push('/around-react');
           api.setUserInfo({ email: res.data.email });
@@ -71,11 +72,12 @@ function App() {
         .finally(() => {
           setIsCheckingToken(false);
         });
+    } else {
+      setIsCheckingToken(false);
     }
   }, [history]);
 
   const handleSignUp = (email, password) => {
-    console.log(email, password);
     signUp(email, password)
       .then((res) => {
         if (res.data._id) {
@@ -217,14 +219,20 @@ function App() {
       })
       .catch((err) => console.log(err));
   }
+  const handleEyeIcon = (e) => {
+    const eye = document.querySelector('.auth-form__input-password');
 
-  return (
+    eye.classList.toggle('auth-form__password-holder-active');
+  };
+  return isCheckingToken ? (
+    <div />
+  ) : (
     <div className="App">
       <CurrentUserContext.Provider value={currentUser}>
         <Header
           isLoggedIn={isLoggedIn}
-          email={email.email}
-          handleLogout={handleLogout}
+          email={email}
+          handleSignout={handleLogout}
         />
         <Switch>
           <ProtectedRoute
@@ -244,11 +252,14 @@ function App() {
           </ProtectedRoute>
 
           <Route path="/signup">
-            <Register handleSignUp={handleSignUp} />
+            <Register
+              handleSignUp={handleSignUp}
+              handleEyeIcon={handleEyeIcon}
+            />
           </Route>
 
           <Route path="/signin">
-            <Login handleLogin={handleLogin} />
+            <Login handleLogin={handleLogin} handleEyeIcon={handleEyeIcon} />
           </Route>
 
           <Route>
