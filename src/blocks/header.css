@@ -1,4 +1,6 @@
 .header {
+  display: flex;
+  flex-direction: row;
   box-sizing: border-box;
   width: 880px;
   align-self: flex-start;
@@ -25,13 +27,31 @@
 }
 
 .header__logo {
+  display: flex;
+  margin: 0;
+  padding-right: 426px;
   max-width: 173px;
   height: 33px;
   padding-bottom: 21px;
 }
+.header__container {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+}
 .header__email {
+  display: flex;
+  margin: 0;
   color: #fff;
-  
+  max-width: max-content;
+  padding-right: 24px;
+}
+.header_text {
+  cursor: pointer;
+  display: flex;
+  margin: 0;
+  color: #fff;
+  max-width: max-content;
 }
 
 @media screen and (max-width: 910px) {

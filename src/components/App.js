@@ -120,6 +120,22 @@ function App() {
     history.push('/signin');
   };
 
+  useEffect(() => {
+    const closeByEvents = (e) => {
+      if (e.key === 'Escape' || e.target.classList.contains('popup_open')) {
+        closeAllPopups();
+      }
+    };
+
+    document.addEventListener('keydown', closeByEvents);
+    document.addEventListener('click', closeByEvents);
+
+    return () => {
+      document.removeEventListener('keydown', closeByEvents);
+      document.removeEventListener('click', closeByEvents);
+    };
+  }, []);
+
   function handleCardLike(card) {
     // Check one more time if this card was already liked
     const isLiked = card.likes.some((user) => user._id === currentUser._id);
@@ -167,6 +183,7 @@ function App() {
     setIsImgViewOpen(false);
     setIsDeletePopupOpen(false);
     setIsInfoTooltipOpen(false);
+    document.removeEventListener('keydown', closeAllPopups);
   }
 
   function handleDeleteClick(card) {
@@ -192,7 +209,7 @@ function App() {
     api
       .editAvatar(avatar)
       .then((data) => {
-        setCurrentUser(data);
+        setCurrentUser({ data });
         closeAllPopups();
       })
       .catch((err) => {

@@ -16,16 +16,18 @@ const Header = ({ isLoggedIn, email, handleSignout }) => {
 
   return (
     <header
-      className={isHeaderMenuOpen ? 'header__wrapper-mobile-open' : 'header'}
+      className={
+        isHeaderMenuOpen ? 'header header__wrapper-mobile-open' : 'header'
+      }
     >
       <img src={logo} alt="AROUND the us logo" className="header__logo" />
       {isLoggedIn ? (
-        <>
+        <div className="header__container">
           <p className="header__email">{email}</p>
           <p className="header_text" onClick={handleSignout}>
             Log out
           </p>
-        </>
+        </div>
       ) : (
         <div className="header__redirect">
           {' '}

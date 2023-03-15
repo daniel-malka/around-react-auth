@@ -13,22 +13,11 @@ function AddPlacePopup({ isOpen, onSubmit, onClose }) {
   function handleSubmit(e) {
     e.preventDefault();
     onSubmit({
-      name: name,
+      name,
       link,
     });
   }
 
-  useEffect(() => {
-    document.addEventListener('keydown', handleEnterSumbit);
-  }, [isOpen]);
-
-  function handleEnterSumbit(e) {
-    if (e.key === 'Enter') handleSubmit(e);
-
-    return () => {
-      document.removeEventListener('keydown', handleEnterSumbit);
-    };
-  }
   function handleNameChange(e) {
     setName(e.target.value);
   }
