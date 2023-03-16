@@ -325,11 +325,15 @@ function App() {
         ) : (
           ''
         )}
-        <InfoTooltip
-          isOpen={isInfoTooltipOpen}
-          onClose={closeAllPopups}
-          bool={tooltipStatus}
-        />
+        {isLoggedIn ? (
+          ''
+        ) : (
+          <InfoTooltip
+            isOpen={isInfoTooltipOpen}
+            onClose={closeAllPopups}
+            bool={tooltipStatus}
+          />
+        )}
       </CurrentUserContext.Provider>
     </div>
   );
