@@ -3,6 +3,7 @@
   flex-direction: row;
   box-sizing: border-box;
   width: 880px;
+  padding-top: 40px;
   align-self: flex-start;
   margin-bottom: 40px;
   justify-content: space-between;
@@ -22,25 +23,68 @@
   align-items: center;
   text-align: center;
   width: 100%;
+  max-width: 880px;
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+}
+.header__mobile-menu-button {
+  display: none;
+  width: 30px;
+  height: 30px;
 }
 
-.header__email,
-.header__text {
+.header__email {
+  display: flex;
   color: #fff;
+  margin: 0;
   font-size: 18px;
   line-height: 22px;
+  max-width: max-content;
+  padding-right: 24px;
+}
+
+.header__email-mobile {
+  display: flex;
+  color: #fff;
+  margin: 0;
+  font-size: 18px;
+  line-height: 22px;
+  max-width: max-content;
+  padding-top: 40px;
+  padding-bottom: 18px;
+}
+.header__text {
+  font-size: 18px;
+  line-height: 22px;
+  cursor: pointer;
+  display: flex;
+  margin: 0;
+  color: #fff;
+  transition-duration: 500ms;
+  max-width: max-content;
+}
+
+.header__text-mobile {
+  font-size: 18px;
+  line-height: 22px;
+  cursor: pointer;
+  display: flex;
+  margin: 0;
+  padding-bottom: 40px;
+  color: #fff;
+  max-width: max-content;
+  transition-duration: 500ms;
+}
+
+.header__text:hover,
+.header__text-mobile:hover {
+  opacity: 0.6;
 }
 .header__boarder-line {
   max-width: 880px;
   border-bottom: 1px solid rgba(84, 84, 84, 0.7);
 }
-.header__redirect {
-  position: relative;
-  top: -46px;
-  left: 828px;
-  max-width: max-content;
-}
-.header__redirect-login {
+
+.header__redirect-text {
   text-decoration: none;
   padding: 0;
   border: none;
@@ -50,7 +94,6 @@
   font-size: 18px;
   line-height: 22px;
   font-weight: 400;
-  position: relative;
 }
 
 .header__logo {
@@ -66,20 +109,6 @@
   flex-direction: row;
   justify-content: space-between;
 }
-.header__email {
-  display: flex;
-  margin: 0;
-  color: #fff;
-  max-width: max-content;
-  padding-right: 24px;
-}
-.header_text {
-  cursor: pointer;
-  display: flex;
-  margin: 0;
-  color: #fff;
-  max-width: max-content;
-}
 
 @media screen and (max-width: 910px) {
   .header {
@@ -87,10 +116,29 @@
     padding-left: 30px;
     padding-right: 34px;
   }
+  .header__container-mobile {
+    display: none;
+  }
+  .header__mobile-menu-button {
+    display: flex;
+  }
   .header__mobile {
     padding-left: 0;
     padding-right: 0;
   }
+  .header__email {
+    display: none;
+    padding-right: 0;
+    padding-top: 40px;
+  }
+  .header__text {
+    display: none;
+  }
+  /* .header__container {
+    padding-top: 27px;
+    padding-left: 30px;
+    padding-right: 34px;
+  } */
 }
 
 @media screen and (max-width: 620px) {

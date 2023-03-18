@@ -244,7 +244,7 @@ function App() {
   return isCheckingToken ? (
     <div />
   ) : (
-    <div className="App">
+    <div className="app">
       <CurrentUserContext.Provider value={currentUser}>
         <Header
           isLoggedIn={isLoggedIn}

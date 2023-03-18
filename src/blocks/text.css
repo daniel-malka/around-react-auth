@@ -30,9 +30,10 @@
   width: 24px;
   height: 24px;
   background-color: #000;
-  background-image: url("../images/pen.svg");
+  background-image: url('../images/pen.svg');
   background-position: center;
   background-repeat: no-repeat;
+  transition-duration: 500ms;
 }
 .text__edit:hover {
   cursor: pointer;
@@ -73,6 +74,7 @@
     row-gap: 14px;
   }
   .text__title {
+    padding-top: 27px;
     column-gap: 10px;
   }
   .text__edit {

@@ -107,8 +107,7 @@
 .popup__caption-delete {
   margin-bottom: 38px;
 }
-/* .popup__caption-img-add {
-} */
+
 .popup__caption-edit-profile {
   margin-bottom: 54px;
 }
@@ -129,8 +128,7 @@
 
 @media screen and (max-width: 550px) {
   .popup__container {
-    width: 282px;
-    padding: 25px 22px;
+    width: calc(100vw - 40px);
   }
 
   .popup__close {
