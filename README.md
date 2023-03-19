@@ -44,7 +44,7 @@ If you want to contribute to this project, follow these steps:
 Fork this repository.
 Create a branch: git checkout -b <branch_name>
 Make your changes and commit them: git commit -m '<commit_message>'
-Push to the original branch: git push origin <around-react-header>/<location>
+Push to the original branch: git push origin <around-react-auth>/<location>
 Create the pull request.
 License
 This project is licensed under the [Practicum 100] License. See the LICENSE file for details.

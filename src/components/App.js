@@ -81,16 +81,15 @@ function App() {
     signUp(email, password)
       .then((res) => {
         if (res.data._id) {
-          setTooltipStatus(true);
-          setIsInfoTooltipOpen(true);
           history.push('/signin');
         } else {
           setTooltipStatus(false);
-          setIsInfoTooltipOpen(true);
         }
       })
       .catch((err) => {
         setTooltipStatus(false);
+      })
+      .finally(() => {
         setIsInfoTooltipOpen(true);
       });
   };
@@ -105,12 +104,14 @@ function App() {
           localStorage.setItem('token', res.token);
         } else {
           setTooltipStatus(false);
-          setIsInfoTooltipOpen(true);
         }
       })
       .catch((err) => {
-        setTooltipStatus(false);
+        console.log(err);
+      })
+      .finally(() => {
         setIsInfoTooltipOpen(true);
+        setTooltipStatus(false);
       });
   };
 
@@ -141,19 +142,29 @@ function App() {
     const isLiked = card.likes.some((user) => user._id === currentUser._id);
 
     if (isLiked) {
-      api.dislikeCard(card._id).then((likedCard) => {
-        const newCards = cards.map((card) => {
-          return card._id === likedCard._id ? likedCard : card;
+      api
+        .dislikeCard(card._id)
+        .then((likedCard) => {
+          const newCards = cards.map((card) => {
+            return card._id === likedCard._id ? likedCard : card;
+          });
+          setCards(newCards);
+        })
+        .catch((err) => {
+          console.log(err);
         });
-        setCards(newCards);
-      });
     } else {
-      api.likeCard(card._id).then((likedCard) => {
-        const newCards = cards.map((card) => {
-          return card._id === likedCard._id ? likedCard : card;
+      api
+        .likeCard(card._id)
+        .then((likedCard) => {
+          const newCards = cards.map((card) => {
+            return card._id === likedCard._id ? likedCard : card;
+          });
+          setCards(newCards);
+        })
+        .catch((err) => {
+          console.log(err);
         });
-        setCards(newCards);
-      });
     }
   }
 
@@ -183,7 +194,6 @@ function App() {
     setIsImgViewOpen(false);
     setIsDeletePopupOpen(false);
     setIsInfoTooltipOpen(false);
-    document.removeEventListener('keydown', closeAllPopups);
   }
 
   function handleDeleteClick(card) {
@@ -209,7 +219,7 @@ function App() {
     api
       .editAvatar(avatar)
       .then((data) => {
-        setCurrentUser({ data });
+        setCurrentUser(data);
         closeAllPopups();
       })
       .catch((err) => {

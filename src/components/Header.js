@@ -32,6 +32,11 @@ const Header = ({ isLoggedIn, email, handleSignout }) => {
             className="header__mobile-menu-button"
             onClick={handleMenuButton}
             src={isMobileHeaderOpen ? closeX : hamburger_icon}
+            alt={
+              isMobileHeaderOpen
+                ? 'mobile menu close button'
+                : 'open menu button'
+            }
           />
         ) : (
           ''

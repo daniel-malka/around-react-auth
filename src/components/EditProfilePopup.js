@@ -22,7 +22,7 @@ function EditProfilePopup({ isOpen, onUpdateUser, onClose }) {
       setName(currentUser.name);
       setAbout(currentUser.about);
     }
-  }, [currentUser]);
+  }, [currentUser, isOpen]);
 
   function handleSubmit(e) {
     e.preventDefault();

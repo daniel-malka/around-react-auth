@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
 
 function AddPlacePopup({ isOpen, onSubmit, onClose }) {
+  
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
 

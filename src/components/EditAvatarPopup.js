@@ -11,10 +11,6 @@ function EditAvatarPopup({ isOpen, onUpdateAvatar, onClose }) {
   function handleSubmit(e) {
     e.preventDefault();
     onUpdateAvatar(inputRef.current.value);
-    return () => {
-      document.removeEventListener('keydown', handleSubmit);
-      document.removeEventListener('click', handleSubmit);
-    };
   }
 
   return (
