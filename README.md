@@ -49,4 +49,4 @@ Create the pull request.
 License
 This project is licensed under the [Practicum 100] License. See the LICENSE file for details.
 
-Link ---> https://daniel-malka.github.io/around-react
+Link ---> https://daniel-malka.github.io/around-react-auth

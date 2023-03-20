@@ -87,6 +87,7 @@ function App() {
         }
       })
       .catch((err) => {
+        console.log(err);
         setTooltipStatus(false);
       })
       .finally(() => {
@@ -102,8 +103,6 @@ function App() {
           setEmail(email);
           history.push('/around-react');
           localStorage.setItem('token', res.token);
-        } else {
-          setTooltipStatus(false);
         }
       })
       .catch((err) => {
